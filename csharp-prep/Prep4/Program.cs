@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-/* Solution 2 uses do while loop and the built-in maxNum and Sum function from the System.Linq library
+/* Solution 2 uses do while loop and the built-in Max and Sum function from the System.Linq library
    SOlution 1 uses while loop and a custom method of keeping count of the running total and a foreach loop  
    Comment out Solution 1 when done testing, and uncomment Solution 2*/
 
@@ -82,7 +82,7 @@ class Program
         // A list to store the inputted numbers
         List<int> numList = new List<int>();
         // Variable to store user input
-        int number;
+        int userNum;
 
         do
         {
@@ -93,13 +93,19 @@ class Program
             {
                 numList.Add(userNum);
             }
-            
+
         } while (userNum != 0);
 
         // Calculate total
         int total = numList.Sum();
-        // Calculate average
+
+        // Calculating average using two methods:
+        // Comment out the method 1, and uncomment method 2 
+        // METHOD 1 - using custom method
         float avg = Convert.ToSingle(total) / numList.Count();
+        // METHOD 2 - using the List built-in Average method
+        // double avg = numList.Average();
+
         // Calculate maximum number
         int maxNum = numList.Max();
 
