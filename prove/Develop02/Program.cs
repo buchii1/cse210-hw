@@ -70,3 +70,13 @@ class Program
         } while (prompt < 6);
     }
 }
+
+
+/*
+EXTRA REQUIREMENTS
+
+1. I added a codeblock that removes prompts that have been suggested from the list of prompts.
+    Thereby preventing a prompt from appearing multiple times.
+2. I added a new class named AddPrompt that allows the user the option of adding more prompts 
+    to the list of prompts.
+*/
