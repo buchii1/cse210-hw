@@ -29,13 +29,13 @@ class Program
             {
                Entry entry = new Entry();
                menu.DisplayRandomQuestions();
-               
+
                if (menu._promptsRemaining)
                {
                     string answer = Console.ReadLine();
                     string question = menu._question;
 
-                    entry.SetEntry(answer, question);
+                    entry.GetEntry(answer, question);
                     journal._journal.Add(entry);             
                }
             }
