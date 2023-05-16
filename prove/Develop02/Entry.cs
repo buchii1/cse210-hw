@@ -12,6 +12,12 @@ public class Entry
         DateTime now = DateTime.Now;
         _date = now.ToString("MM/dd/yyyy HH:mm tt");
     }
+
+    public void SetEntry(string userResponse, string question)
+    {
+        _userResponse = userResponse;
+        _question = question;
+    }
     
 
     public void DisplayEntry()
