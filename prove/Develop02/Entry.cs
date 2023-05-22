@@ -13,10 +13,11 @@ public class Entry
         _date = now.ToString("MM/dd/yyyy HH:mm tt");
     }
 
-    public void GetEntry(string userResponse, string question)
+    public void GetEntry(string userResponse, string question, string date = "")
     {
         _userResponse = userResponse;
         _question = question;
+        _date = date;
     }
     
 
