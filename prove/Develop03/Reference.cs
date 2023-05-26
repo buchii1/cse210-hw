@@ -7,6 +7,7 @@ public class Reference
     private string _verse;
     private string _endVerse;
 
+
     // A constructor for cases when there's a single verse
     public Reference(string book, string chapter, string verse)
     {
@@ -31,11 +32,11 @@ public class Reference
 
         if (_endVerse != null)
         {
-            reference = $"{_book} {_chapter}:{_verse}-{_endVerse} ";
+            reference = $"{_book} {_chapter}:{_verse}-{_endVerse}";
         }
         else
         {
-            reference = $"{_book} {_chapter}:{_verse} ";
+            reference = $"{_book} {_chapter}:{_verse}";
         }
 
         return reference;
