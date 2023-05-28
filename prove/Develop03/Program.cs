@@ -77,3 +77,12 @@ class Program
         while (userInput != "quit");
     }
 }
+
+
+/*
+EXTRA REQUIREMENTS
+
+1. I added a codeblock that prevents duplicate words from being hidden in the program.
+2. I added a File class that read the scriptures from a txt file and adds each reference as a key, and the text as a value to a dictionary.
+3. I added the ability for a user to select a random scripture or choose a scripture from a list of scriptures.
+*/
