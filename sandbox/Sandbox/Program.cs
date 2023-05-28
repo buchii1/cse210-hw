@@ -5,74 +5,44 @@ class Program
     static void Main(string[] args)
     {
         Console.WriteLine("Hello Sandbox World!");
+    }
+}
 
-        // Create an instance of the Person class
-        Person person = new Person();
-        person._givenName = "Godspower";
-        person._familyName = "Okonkwo";
-        person.ShowEasternName();
-        person.ShowWesternName();
+public class Reference
+{
+    private string _book;
+    private string _chapter;
+    private string _verse;
+    private string _endVerse;
 
-        // Create an instance of the Blind class
-        Blind kitchen = new Blind();
-        kitchen._width = 60;
-        kitchen._height = 48;
-        kitchen._color = "white";
-
-        double materialAmount = kitchen.GerArea();
-        Console.WriteLine($"\nHeight: {kitchen._height}\nWidth: {kitchen._width}\nColor: {kitchen._color}");
-    
-        House myHome = new House();
-        myHome._owner = "Buchii";
-        // myHome._kitchen._width = 120;
-        // myHome._kitchen._height = 90;
-        // myHome._kitchen._color = "Ash";
-        myHome._blinds.Add(kitchen);
-        double amount = myHome._blinds[0].GerArea();
-        string color = myHome._blinds[0]._color;
-        Console.WriteLine($"Amount: {amount}, Color: {color}");
+    public Reference(string book, string chapter, string verse)
+    {
+        _book = book;
+        _chapter = chapter;
+        _verse = verse;
     }
 
-    public class Person
+    public Reference(string book, string chapter, string verse, string endVerse)
     {
-        public string _givenName = "";
-        public string _familyName  = "";
-
-        // Initialize class constructor
-        public Person()
-        {
-        }
-
-        // Method 1
-        public void ShowEasternName()
-        {
-            Console.WriteLine($"{_familyName}, {_givenName}");
-        }
-
-        // Method 2
-        public void ShowWesternName()
-        {
-            Console.WriteLine($"{_givenName} {_familyName}");
-        }
+        _book = book;
+        _chapter = chapter;
+        _verse = verse;
+        _endVerse = endVerse;
     }
 
-    public class Blind
-    {
-        public double _width;
-        public double _height;
-        public string _color;
+    // A method that displays the reference
+    public string GetReference() {
+       string reference;
 
-        public double GerArea()
-        {
-            return _width * _height;
-        }
-    }
+       if (_endVerse != null)
+       {
+            reference = $"{_book} {_chapter}:{_verse}-{_endVerse}";
+       }
+       else
+       {
+            reference = $"{_book} {_chapter}:{_verse}";
+       }
 
-    public class House
-    {
-        public string _owner = "";
-        // public Blind _kitchen = new Blind();
-        // public Blind _livingRoom = new Blind();
-        public List<Blind> _blinds = new List<Blind>();
+       return reference;
     }
 }
