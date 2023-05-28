@@ -36,7 +36,7 @@ class Program
                 Console.WriteLine(reference);
             }
             
-            Console.Write("Input the number: ");
+            Console.Write("Input a number: ");
             int num = int.Parse(Console.ReadLine());
 
             while (num < 1 || num > scriptureList.Count)
