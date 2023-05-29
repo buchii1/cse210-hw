@@ -1,5 +1,8 @@
 using System.Collections.Generic;
 
+// A code template for the category of things known as Scripture.
+// The responsibility of a Scripture is to  randomly hide, show and display 
+//  the text and reference to a scripture
 public class Scripture
 {
     private string _reference;
@@ -23,6 +26,8 @@ public class Scripture
         }
     }
 
+    // A method that checks if all the words in a dictionary 
+    //  are completely hidden
     public  bool IsCompletelyHidden()
     {
         bool completelyHidden = true;
@@ -38,11 +43,20 @@ public class Scripture
         return completelyHidden;
     }
 
+    // A method that randomly hides three words in the _texts list
     public void HideWords() {
+        // A variable to hold the value of the total
+        //  items in the list
         int totText = _texts.Count;
+
+        // Create an instance of Random
         Random randNum = new Random();
+
+        // A variable to keep count of the number of unhidden words
         int counter = 0;
 
+        // Loop through the _texts list and keep count
+        //  of the words that are not hidden
         foreach(Word word in _texts)
         {
             if (!word.IsHidden())
@@ -51,24 +65,36 @@ public class Scripture
             }
         }
 
+        // Check if the number of hidden words are greater
+        //  or equal to 3
         if (counter >= 3)
         {
+            // A loop that runs three times and automatically hides
+            //  three random words
             for (int i = 0; i < 3; i++)
             {
+                // Choose a random index and find the value
                 int index = randNum.Next(totText);
                 Word word = _texts[index];
 
+                // Keep looping till it finds a word is not
+                //  already hidden
                 while (word.IsHidden())
                 {
                     index = randNum.Next(totText); 
                     word = _texts[index];
                 }
 
+                // Hide the word
                 word.HideWord();
             }    
         }
+
+        // Condition to run if the number of hidden words
+        //  are less than three
         else
-        {
+        {   
+            // Loop through the list and hide the remaining words
             foreach (Word word in _texts)
             {
                 if (!word.IsHidden())
@@ -79,24 +105,35 @@ public class Scripture
         }
     }
 
+    // A getter method that loops through the _text list, hide
+    //  replaces the indexes of the hidden words and return then
     public string GetRenderedText()
-    {
+    {   
+        // A list to store the words in the _text list
         List<string> words = new List<string>();
 
+        // Loop through the _texts list
         foreach (Word word in _texts)
         {
+            // Get the value of each word
             string value = word.GetWord();
 
+            // Condition to run if the word is hidden
             if (word.IsHidden())
             {
                 string hidden = "";
                 
+                // Loop through the length of the hidden word
                 for (int i = 0; i < value.Length; i++)
                 {
-                   hidden += "_";
+                    // Replace each index with an _
+                    hidden += "_";
                 }
+                // Add the hidden word to the dictionary
                 words.Add(hidden);
             }
+
+            // Add the word to the dictionary if it is not hidden 
             else {
                 words.Add(value);
             }
@@ -104,6 +141,7 @@ public class Scripture
 
         // Covert list of texts to a single string
         string scriptureText = string.Join(" ", words);
+        
         // Capitalize the first letter in the string
         scriptureText = char.ToUpper(scriptureText[0]) + scriptureText.Substring(1);
         string scripture = $"{_reference} {scriptureText}";
