@@ -6,7 +6,7 @@ using System.IO;
 //      a file and appends them to a Dictionary
 public class File
 {
-    private Dictionary<string, string> scriptures_ = new Dictionary<string, string>();
+    private Dictionary<string, string> _scriptures = new Dictionary<string, string>();
 
     // A method that reads data from a file and 
     //  populates the data in a dictionary
@@ -26,7 +26,7 @@ public class File
             string text = lines[1].Trim('"');
 
             // Adds the data to the dictionary
-            scriptures_.Add(reference, text);
+            _scriptures.Add(reference, text);
         }
     }
 
@@ -34,7 +34,7 @@ public class File
     //  from the _scriptures dictionary
     public KeyValuePair<string, string> GetRandomScripture()
     {
-        int scriptureLength = scriptures_.Count;
+        int scriptureLength = _scriptures.Count;
         
         // Throw an error if the dictionary is empty
         if (scriptureLength == 0)
@@ -47,8 +47,9 @@ public class File
             Random random = new Random();
             int randIndex = random.Next(scriptureLength);
 
+
             // Find the key value pair of the randIndex generated
-            KeyValuePair<string, string> randomScripture = scriptures_.ElementAt(randIndex);
+            KeyValuePair<string, string> randomScripture = _scriptures.ElementAt(randIndex);
             return randomScripture;
         }
     }
@@ -64,7 +65,7 @@ public class File
 
         // Loops through the dictionary and appends the keys and 
         //  it's index(es) to a list
-        foreach (KeyValuePair<string, string> entry in scriptures_)
+        foreach (KeyValuePair<string, string> entry in _scriptures)
         {
             string word = $"{counter + 1 }. {entry.Key}";
             display.Add(word);
@@ -78,7 +79,7 @@ public class File
     //  corresponding to the index
     public KeyValuePair<string, string> DisplaySelectedScripture(int selection)
     {
-        KeyValuePair<string, string> selectedScripture = scriptures_.ElementAt(selection - 1);
+        KeyValuePair<string, string> selectedScripture = _scriptures.ElementAt(selection - 1);
         return selectedScripture;
     }
 }
