@@ -109,6 +109,9 @@ public class Scripture
     //  replaces the indexes of the hidden words and return then
     public string GetRenderedText()
     {   
+        // Clear the Console
+        Console.Clear();
+        
         // A list to store the words in the _text list
         List<string> words = new List<string>();
 
