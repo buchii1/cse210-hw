@@ -76,7 +76,6 @@ public class Scripture
             //  three random words
             for (int i = 0; i < 3; i++)
             {
-
                 // Keep looping till it finds a word is not
                 //  already hidden
                 do
