@@ -69,21 +69,23 @@ public class Scripture
         //  or equal to 3
         if (counter >= 3)
         {
+            int index = -1; // Keeps track of the random _texts index
+            Word word = null; // Initialize the word class to null
+
             // A loop that runs three times and automatically hides
             //  three random words
             for (int i = 0; i < 3; i++)
             {
-                // Choose a random index and find the value
-                int index = randNum.Next(totText);
-                Word word = _texts[index];
 
                 // Keep looping till it finds a word is not
                 //  already hidden
-                while (word.IsHidden())
+                do
                 {
-                    index = randNum.Next(totText); 
-                    word = _texts[index];
-                }
+                   // Choose a random index and find the value
+                    index = randNum.Next(totText);
+                    word = _texts[index]; 
+
+                } while (word.IsHidden());
 
                 // Hide the word
                 word.HideWord();
