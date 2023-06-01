@@ -105,13 +105,19 @@ public class Scripture
         }
     }
 
+    // A method that clears the console
+    private void ClearConsole()
+    {
+        Console.Clear();
+    }
+
     // A getter method that loops through the _text list, hide
     //  replaces the indexes of the hidden words and return then
     public string GetRenderedText()
     {   
         // Clear the Console
-        Console.Clear();
-        
+        ClearConsole();
+
         // A list to store the words in the _text list
         List<string> words = new List<string>();
 
