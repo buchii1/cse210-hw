@@ -29,15 +29,15 @@ class Program
             Console.WriteLine($"{i + 1}. {prompts[i]}");
         }
 
-        Console.Write("Input a number: ");
-        int userChoice = int.Parse(Console.ReadLine());
+        int userChoice;
 
         // Keep looping till a valid input is entered
-        while (userChoice < 1 || userChoice > prompts.Count)
+        do
         {
             Console.Write("Input a number: ");
             userChoice = int.Parse(Console.ReadLine());
-        }
+
+        } while (userChoice < 1 || userChoice > prompts.Count);
 
         Console.WriteLine();
 
@@ -61,18 +61,18 @@ class Program
                 Console.WriteLine(reference);
             }
             
-            Console.Write("Input a number: ");
-            int num = int.Parse(Console.ReadLine());
+            int numSelected;
 
             // Keep looping till a valid input is entered
-            while (num < 1 || num > scriptureList.Count)
+            do
             {
                 Console.Write("Input a number: ");
-                num = int.Parse(Console.ReadLine());
-            }
+                numSelected = int.Parse(Console.ReadLine());
+            
+            } while (numSelected < 1 || numSelected > scriptureList.Count);
 
             // Call the DisplaySelectedScripture method
-            KeyValuePair<string, string> selected = newFile.DisplaySelectedScripture(num);
+            KeyValuePair<string, string> selected = newFile.DisplaySelectedScripture(numSelected);
 
             // Create an instance of Scripture and print to the console
             quote = new Scripture(selected.Key, selected.Value);
@@ -127,8 +127,6 @@ class Program
 
             if (userInput != "quit")
             {
-                // Clear the console
-                Console.Clear();
                 // Call the HideWord method
                 quote.HideWords();
                 // Display the scripture to the console
