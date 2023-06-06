@@ -22,12 +22,28 @@ public class Word
     // A function that hides a word
     public void HideWord()
     {
-       _isHidden = true; 
+        _isHidden = true;
     }
 
-    // A getter that displays the word
+    // A getter that replaces hidden words with "_" and displays the word
     public string GetWord()
     {
-        return _word;
+        string hidden = "";
+
+        // Condition to run if the word is hidden
+        if (_isHidden)
+        {
+            // Loop through the length of the hidden word
+            for (int i = 0; i < _word.Length; i++)
+            {
+                // Replace each index with an _
+                hidden += "_";
+            }
+            return hidden;
+        }
+        else
+        {
+            return _word;
+        }
     }
 }
