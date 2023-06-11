@@ -13,17 +13,17 @@ class Program
             userInput = int.Parse(Console.ReadLine());
             if (userInput == 1)
             {
-                Breathing breath = new Breathing();
+                BreathingActivity breath = new BreathingActivity();
                 breath.RunActivity();
             }
             else if (userInput == 2)
             {
-                Reflecting reflect = new Reflecting();
+                ReflectingActivity reflect = new ReflectingActivity();
                 reflect.RunActivity();
             }
             else if (userInput == 3)
             {
-                Listing list = new Listing();
+                ListingActivity list = new ListingActivity();
                 list.RunActivity();
             }
             else
@@ -37,6 +37,6 @@ class Program
 /*
 EXTRA REQUIREMENTS
 
-1. I added a codeblock that prevents duplicate prompts from being displayed in the Reflection and Listing Activity.
+1. I added a codeblock that prevents duplicate prompts from being displayed in the Reflection and ListingActivity Activity.
 
 */
