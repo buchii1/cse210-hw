@@ -4,6 +4,10 @@ class Program
 {
     static void Main(string[] args)
     {
+        BreathingActivity breath = new BreathingActivity();
+        ReflectingActivity reflect = new ReflectingActivity();
+        ListingActivity list = new ListingActivity();
+
         int userInput;
         
         do
@@ -13,17 +17,14 @@ class Program
             userInput = int.Parse(Console.ReadLine());
             if (userInput == 1)
             {
-                BreathingActivity breath = new BreathingActivity();
                 breath.RunActivity();
             }
             else if (userInput == 2)
             {
-                ReflectingActivity reflect = new ReflectingActivity();
                 reflect.RunActivity();
             }
             else if (userInput == 3)
             {
-                ListingActivity list = new ListingActivity();
                 list.RunActivity();
             }
             else
