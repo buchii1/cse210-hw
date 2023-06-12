@@ -4,6 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
+        Menu menu = new Menu();
         BreathingActivity breath = new BreathingActivity();
         ReflectingActivity reflect = new ReflectingActivity();
         ListingActivity list = new ListingActivity();
@@ -12,9 +13,9 @@ class Program
         
         do
         {
-            Menu menu = new Menu();
             menu.DisplayMenu();
             userInput = int.Parse(Console.ReadLine());
+            
             if (userInput == 1)
             {
                 breath.RunActivity();
