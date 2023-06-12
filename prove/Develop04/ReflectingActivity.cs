@@ -48,8 +48,8 @@ public class ReflectingActivity : Activity
         {
             if (index == 1)
             {
-            newList.AddRange(_usedPrompts);
-            _usedPrompts.Clear();
+                newList.AddRange(_usedPrompts);
+                _usedPrompts.Clear();
             }
             else
             {
