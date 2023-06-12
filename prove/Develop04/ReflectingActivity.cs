@@ -25,11 +25,13 @@ public class ReflectingActivity : Activity
 
     private List<string> _usedPrompts = new List<string>();
     private bool _promptLeft;
+    private int _spinDuration;
 
 
     public ReflectingActivity()
     {
         _promptLeft = true;
+        _spinDuration = 10;
 
         _name = "Reflecting";
         _description = "This activity will help you reflect on times in your life when you have shown " +
@@ -53,7 +55,7 @@ public class ReflectingActivity : Activity
         }
         else
         {
-            _usedPrompts = null;
+            _usedPrompts.Clear();
             _promptLeft = false;
         }
 
@@ -99,10 +101,8 @@ public class ReflectingActivity : Activity
             {
                 if (_promptLeft)
                 {
-                    int spinDuration = 10;
-
                     Console.Write($"{GetRandomPrompt(_questions)} ");
-                    Spin(spinDuration);
+                    Spin(_spinDuration);
                 }
                 else
                 {
