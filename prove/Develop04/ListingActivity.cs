@@ -13,12 +13,9 @@ public class ListingActivity : Activity
         };
 
     private List<string> _usedPrompts = new List<string>();
-    private bool _questionsLeft;
 
     public ListingActivity()
     {
-        _questionsLeft = true;
-
         _name = "Listing";
         _description = "This activity will help you reflect on the good things in your life " +
                       "by having you list as many things as you can in a certain area.";
@@ -30,19 +27,17 @@ public class ListingActivity : Activity
         Random randGen = new Random();
         string text = null;
 
-        if (questionsLength != 0)
+        if (questionsLength == 0)
         {
-            int index = randGen.Next(questionsLength);
-            text = _questions[index];
-
-            _usedPrompts.Add(text);
-            _questions.RemoveAt(index);
-        }
-        else
-        {
+            _questions.AddRange(_usedPrompts);
             _usedPrompts.Clear();
-            _questionsLeft = false;
         }
+
+        int index = randGen.Next(questionsLength);
+        text = _questions[index];
+
+        _usedPrompts.Add(text);
+        _questions.RemoveAt(index);
 
         return text;
     }
@@ -59,34 +54,26 @@ public class ListingActivity : Activity
         Spin();
         Console.WriteLine();
 
-        if (_questionsLeft)
+        Console.WriteLine("List as many responses you can to the following prompts:");
+        Console.Write("--- ");
+        Console.Write(GetRandomQuestion());
+        Console.Write(" ---");
+
+        Console.WriteLine();
+        Console.Write("You may begin in: ");
+        CountDown();
+
+        DateTime startTime = DateTime.Now;
+        DateTime endTime = startTime.AddSeconds(Duration);
+
+        while (DateTime.Now < endTime)
         {
-            Console.WriteLine("List as many responses you can to the following prompts:");
-            Console.Write("--- ");
-            Console.Write(GetRandomQuestion());
-            Console.Write(" ---");
-
-            Console.WriteLine();
-            Console.Write("You may begin in: ");
-            CountDown();
-
-            DateTime startTime = DateTime.Now;
-            DateTime endTime = startTime.AddSeconds(Duration);
-
-            while (DateTime.Now < endTime)
-            {
-                string text = Console.ReadLine();
-                counter++;
-            }
-
-            Console.WriteLine($"You listed {counter} items!\n");
-            DisplayEndMessage();
-            ClearConsole();
+            Console.WriteLine(GetRandomQuestion());
         }
-        else
-        {
-            Console.WriteLine("No more questions for today.");
-            ClearConsole();
-        }
+
+        Console.WriteLine($"You listed {counter} items!\n");
+        DisplayEndMessage();
+        ClearConsole();
+
     }
 }
