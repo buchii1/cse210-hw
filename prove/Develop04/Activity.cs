@@ -3,6 +3,15 @@ public class Activity
     protected string _name;
     protected string _description;
     private int _activityDuration;
+    private int _spinDuration;
+    private int _countDownDuration;
+
+    public Activity()
+    {
+        _spinDuration = 6;
+        _countDownDuration = 5;
+    }
+
 
     public int Duration
     {
@@ -10,9 +19,14 @@ public class Activity
         set { _activityDuration = value; }
     }
 
-    public void CountDown(int duration = 5)
+    public void CountDown(int seconds = 0)
     {
-        for (int i = duration; i > 0; i--)
+        if (seconds != 0)
+        {
+            _countDownDuration = seconds;
+        }
+
+        for (int i = _countDownDuration; i > 0; i--)
         {
             Console.Write(i);
             Thread.Sleep(1000);
@@ -43,13 +57,18 @@ public class Activity
         Spin();
     }
 
-    public void Spin(int duration = 5)
+    public void Spin(int seconds = 0)
     {
         int index = 0;
         string animeString = "|/-\\|/\\";
 
+        if (seconds != 0)
+        {
+            _spinDuration = seconds;
+        }
+
         DateTime startTime = DateTime.Now;
-        DateTime endTime = startTime.AddSeconds(duration);
+        DateTime endTime = startTime.AddSeconds(_spinDuration);
 
         while (DateTime.Now < endTime)
         {
