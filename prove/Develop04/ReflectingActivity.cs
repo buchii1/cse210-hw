@@ -24,13 +24,12 @@ public class ReflectingActivity : Activity
         };
 
     private List<string> _usedPrompts = new List<string>();
-    private bool _promptLeft;
+    private List<string> _usedQuestions = new List<string>();
     private int _spinDuration;
 
 
     public ReflectingActivity()
     {
-        _promptLeft = true;
         _spinDuration = 10;
 
         _name = "Reflecting";
@@ -39,25 +38,39 @@ public class ReflectingActivity : Activity
                       "you can use it in other aspects of your life.";
     }
 
-    private string GetRandomPrompt(List<string> newList)
+    private string GetRandomPrompt(List<string> newList, int index)
     {
         int promptLength = newList.Count;
         Random randGen = new Random();
         string text = null;
 
-        if (promptLength != 0)
+        if (promptLength == 0)
         {
-            int index = randGen.Next(promptLength);
-            text = newList[index];
+            if (index == 1)
+            {
+            newList.AddRange(_usedPrompts);
+            _usedPrompts.Clear();
+            }
+            else
+            {
+                newList.AddRange(_usedQuestions);
+                _usedQuestions.Clear();
+            }
+        }
 
+        int i = randGen.Next(promptLength);
+        text = newList[i];
+
+        if (index == 1)
+        {
             _usedPrompts.Add(text);
-            newList.RemoveAt(index);
         }
         else
         {
-            _usedPrompts.Clear();
-            _promptLeft = false;
+            _usedQuestions.Add(text);
         }
+
+        newList.RemoveAt(i);
 
         return text;
     }
@@ -72,17 +85,10 @@ public class ReflectingActivity : Activity
         Spin();
         Console.WriteLine();
 
-        if (_promptLeft)
-        {
-            Console.WriteLine("Consider the following prompt:\n");
-            Console.Write("--- ");
-            Console.Write(GetRandomPrompt(_prompts));
-            Console.Write(" ---");
-        }
-        else
-        {
-            Console.WriteLine("No more prompts for today.");
-        }
+        Console.WriteLine("Consider the following prompt:\n");
+        Console.Write("--- ");
+        Console.Write(GetRandomPrompt(_prompts, 1));
+        Console.Write(" ---");
 
         Console.WriteLine("\n\nWhen you have something in mind, press enter to continue.");
         string userInput = Console.ReadLine();
@@ -99,17 +105,8 @@ public class ReflectingActivity : Activity
 
             while (DateTime.Now < endTime)
             {
-                if (_promptLeft)
-                {
-                    Console.Write($"{GetRandomPrompt(_questions)} ");
-                    Spin(_spinDuration);
-                }
-                else
-                {
-                    Console.Write("No more questions for the chosen prompt.\n");
-                    break;
-                }
-
+                Console.Write($"{GetRandomPrompt(_questions, 2)} ");
+                Spin(_spinDuration);
                 Console.WriteLine();
             }
 
