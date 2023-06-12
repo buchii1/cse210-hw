@@ -40,7 +40,7 @@ public class ListingActivity : Activity
         }
         else
         {
-            _usedPrompts = null;
+            _usedPrompts.Clear();
             _questionsLeft = false;
         }
 
