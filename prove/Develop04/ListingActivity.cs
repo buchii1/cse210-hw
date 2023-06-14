@@ -68,7 +68,8 @@ public class ListingActivity : Activity
 
         while (DateTime.Now < endTime)
         {
-            Console.WriteLine(GetRandomQuestion());
+            Console.ReadLine();
+            counter++;
         }
 
         Console.WriteLine($"You listed {counter} items!\n");
