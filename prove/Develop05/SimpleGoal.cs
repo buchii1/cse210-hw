@@ -2,25 +2,31 @@ public class SimpleGoal : Goal
 {
     public override int RecordEvent()
     {
-        int totalPoints = _basePoint += _point;
-        _duration++;
+        int totalPoints = TotalPoint += Point;
+        Duration++;
         return totalPoints;
     }
 
     public override bool CheckCompletionStatus()
     {
-        _isComplete = false;
+        IsComplete = false;
 
-        if (_duration > 0)
+        if (Duration > 0)
         {
-            _isComplete = true;
+            IsComplete = true;
         }
 
-        return _isComplete;
+        return IsComplete;
+    }
+
+    public override string DisplayGoal()
+    {
+        string status = base.DisplayGoal();
+        return $"[{status}] {Name} ({Description})\n";
     }
 
     public override string GetDetails()
     {
-        return $"{_name} || {Description} || {GetPoint} || {_duration}";
+        return $"{Name} || {Description} || {Point} || {Duration}";
     }
 }

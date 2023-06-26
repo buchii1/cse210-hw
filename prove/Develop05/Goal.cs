@@ -1,12 +1,12 @@
 public abstract class Goal
 {
-    protected int _basePoint;
-    protected int _point;
+    private int _basePoint;
+    private int _point;
 
-    protected int _duration;
-    protected string _description;
-    protected string _name;
-    protected bool _isComplete;
+    private int _duration;
+    private string _description;
+    private string _name;
+    private bool _isComplete;
 
     public Goal()
     {
@@ -39,7 +39,7 @@ public abstract class Goal
         set { _name = value; }
     }
 
-    public int GetPoint
+    public int Point
     {
         get { return _point; }
         set { _point = value; }
@@ -63,8 +63,7 @@ public abstract class Goal
 
     public virtual string DisplayGoal()
     {
-        string status = CheckCompletionStatus() ? "X" : " ";
-        return $"[{status}] {_name} ({_description})\n";
+        return CheckCompletionStatus() ? "X" : " ";
     }
 
     public virtual void DisplayStartMessage()

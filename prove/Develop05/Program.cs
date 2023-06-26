@@ -8,6 +8,7 @@ class Program
         SimpleGoal simpleGoal = new SimpleGoal();
         EternalGoal eternalGoal = new EternalGoal();
         ChecklistGoal checklistGoal = new ChecklistGoal();
+        ProgressionGoal progressionGoal = new ProgressionGoal();
         GoalTracker trackGoal = new GoalTracker();
 
         int userInput;
@@ -21,23 +22,27 @@ class Program
 
             if (userInput == 1)
             {
-                menu.DisplayGoalTypes();
+                trackGoal.DisplayGoalTypes();
                 int prompt = int.Parse(Console.ReadLine());
 
-                if (prompt == 1)
+                switch (prompt)
                 {
-                    simpleGoal.DisplayStartMessage();
-                    trackGoal.AddGoal(simpleGoal);
-                }
-                else if (prompt == 2)
-                {
-                    eternalGoal.DisplayStartMessage();
-                    trackGoal.AddGoal(eternalGoal);
-                }
-                else
-                {
-                    checklistGoal.DisplayStartMessage();
-                    trackGoal.AddGoal(checklistGoal);
+                    case 1:
+                        simpleGoal.DisplayStartMessage();
+                        trackGoal.AddGoal(simpleGoal);
+                        break;
+                    case 2:
+                        eternalGoal.DisplayStartMessage();
+                        trackGoal.AddGoal(eternalGoal);
+                        break;
+                    case 3:
+                        checklistGoal.DisplayStartMessage();
+                        trackGoal.AddGoal(checklistGoal);
+                        break;
+                    default:
+                        progressionGoal.DisplayStartMessage();
+                        trackGoal.AddGoal(progressionGoal);
+                        break;
                 }
             }
             else if (userInput == 2)
@@ -47,14 +52,12 @@ class Program
             else if (userInput == 3)
             {
                 Console.Write("What is the filename for the goal file? ");
-                string fileName = Console.ReadLine();
-                trackGoal.SaveGoals(fileName);
+                trackGoal.SaveGoals(Console.ReadLine());
             }
             else if (userInput == 4)
             {
                 Console.Write("What is the filename for the goal file? ");
-                string fileName = Console.ReadLine();
-                trackGoal.LoadGoals(fileName);
+                trackGoal.LoadGoals(Console.ReadLine());
             }
             else if (userInput == 5)
             {
@@ -62,8 +65,14 @@ class Program
             }
             else
             {
-                Console.WriteLine("Thanks for using our app!");
+                Console.WriteLine("Thanks for using our goal tracking software!");
             }
         } while (userInput < 6);
     }
 }
+
+/*
+EXTRA REQUIREMENTS
+
+1. I added a new ProgressionGoal class that rewards a user with bonusPoints when he attains a new level, and also when he completes the entire goal levels.
+*/

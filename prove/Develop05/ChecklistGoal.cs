@@ -8,7 +8,6 @@ public class ChecklistGoal : Goal
         _numOfTimesAccomplished = 0;
         _bonusPoints = 0;
     }
-
     public int Bonus
     {
         get { return _bonusPoints; }
@@ -23,14 +22,14 @@ public class ChecklistGoal : Goal
 
     public override bool CheckCompletionStatus()
     {
-        _isComplete = false;
+        IsComplete = false;
 
-        if (_numOfTimesAccomplished >= _duration)
+        if (_numOfTimesAccomplished >= Duration)
         {
-            _isComplete = true;
+            IsComplete = true;
         }
 
-        return _isComplete;
+        return IsComplete;
         
     }
 
@@ -41,12 +40,11 @@ public class ChecklistGoal : Goal
 
         if (CheckCompletionStatus())
         {
-            totalPoints = _basePoint += (_bonusPoints + _point);
-            _point += _bonusPoints;
+            totalPoints = TotalPoint += (_bonusPoints + Point);
         }
         else
         {
-            totalPoints = _basePoint += _point;
+            totalPoints = TotalPoint += Point;
         }
 
         return totalPoints;
@@ -54,20 +52,20 @@ public class ChecklistGoal : Goal
 
     public override string DisplayGoal()
     {
-        string status = CheckCompletionStatus() ? "X" : " ";
-        return $"[{status}] {_name} ({_description}) --- Currently completed: {_numOfTimesAccomplished}/{_duration}\n";
+        string status = base.DisplayGoal();
+        return $"[{status}] {Name} ({Description}) --- Currently completed: {_numOfTimesAccomplished}/{Duration}\n";
     }
 
     public override string GetDetails()
     {
-        return $"{_name} || {Description} || {GetPoint} || {_bonusPoints} || {_duration} || {_numOfTimesAccomplished}";
+        return $"{Name} || {Description} || {Point} || {_bonusPoints} || {Duration} || {_numOfTimesAccomplished}";
     }
 
     public override void DisplayStartMessage()
     {
         base.DisplayStartMessage();
         Console.Write("How many times does this goal need to be accomplished for a bonus? ");
-        _duration = int.Parse(Console.ReadLine());
+        Duration = int.Parse(Console.ReadLine());
         Console.Write("What is the bonus for accomplishing it that many times? ");
         _bonusPoints = int.Parse(Console.ReadLine());
     }

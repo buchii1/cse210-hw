@@ -2,11 +2,17 @@ public class EternalGoal : Goal
 {
     public override bool CheckCompletionStatus()
     {
-        return _isComplete = false;
+        return IsComplete = false;
+    }
+
+    public override string DisplayGoal()
+    {
+        string status = base.DisplayGoal();
+        return $"[{status}] {Name} ({Description})\n";
     }
 
     public override string GetDetails()
     {
-        return $"{_name} || {Description} || {GetPoint}";
+        return $"{Name} || {Description} || {Point}";
     }
 }

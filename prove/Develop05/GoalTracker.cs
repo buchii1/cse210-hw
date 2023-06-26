@@ -1,7 +1,30 @@
 public class GoalTracker
 {
     private List<Goal> _goals = new List<Goal>();
-    private int _totalPoints;
+    private List<string> _goalTypes;
+
+    public GoalTracker()
+    {
+        _goalTypes = new List<string>
+        {
+            "Simple Goal",
+            "Eternal Goal",
+            "Checklist Goal",
+            "Progression Goal"
+        };
+    }
+
+    public void DisplayGoalTypes()
+    {
+        Console.WriteLine("The types of Goals are:");
+
+        for (int i = 0; i < _goalTypes.Count; i++)
+        {
+            Console.WriteLine($"  {i + 1}. {_goalTypes[i]}");
+        }
+
+        Console.Write("Which type of goal would you like to create? ");
+    }
 
     public void AddGoal(Goal goal)
     {
@@ -22,14 +45,14 @@ public class GoalTracker
 
     public int GetTotalScore()
     {
-        _totalPoints = 0;
+        int totalPoints = 0;
 
         foreach (Goal goal in _goals)
         {
-            _totalPoints += goal.TotalPoint;
+            totalPoints += goal.TotalPoint;
         }
 
-        return _totalPoints;
+        return totalPoints;
     }
 
     public void RecordGoal()
@@ -44,11 +67,41 @@ public class GoalTracker
 
         Console.Write("What goal did you accomplish? ");
         int input = int.Parse(Console.ReadLine());
+        Spin();
 
         Goal selectedGoal = _goals[input - 1];
         int pointsEarned = selectedGoal.RecordEvent();
 
-        Console.WriteLine($"Congratulations! You have earned {selectedGoal.GetPoint} points!");
+        int bonusPoint = 0;
+
+        if (selectedGoal is ProgressionGoal progressGoal)
+        {
+            if (progressGoal.Progress == progressGoal.Duration)
+            {
+                Console.WriteLine($"Level {progressGoal.CurrentLevel} completed.");
+                progressGoal.Progress = 0;
+                bonusPoint = progressGoal.Bonus;
+                Spin();
+            }
+            if (progressGoal.CheckCompletionStatus())
+            {
+                Console.WriteLine($"You have completed all {progressGoal.TotalLevel} levels of the {progressGoal.Name} goal. You rock!");
+                bonusPoint = progressGoal.Bonus + progressGoal.CompletionBonus;
+                Spin();
+            }
+        }
+        else if (selectedGoal is ChecklistGoal checklistGoal)
+        {
+            if (checklistGoal.CheckCompletionStatus())
+            {
+                Console.WriteLine($"You have completed the {checklistGoal.Name} goal. You rock!");
+                bonusPoint = checklistGoal.Bonus;
+                Spin();
+            }
+        }
+
+        Console.WriteLine($"Congratulations! You have earned {selectedGoal.Point + bonusPoint} points!");
+        Spin();
         Console.WriteLine($"You now have {GetTotalScore()} points.");
     }
 
@@ -84,13 +137,13 @@ public class GoalTracker
 
         for (int i = 0; i < entries.Length; i++)
         {
-            
+
             string entry = entries[i];
             string[] parts = entry.Split(": ");
 
             if (parts.Length != 2)
             {
-                Console.WriteLine($"Invalid goal entry format: {entry}");
+                // Console.WriteLine($"Invalid goal entry format: {entry}");
                 continue;
             }
 
@@ -108,6 +161,9 @@ public class GoalTracker
                 case "SimpleGoal":
                     goal = new SimpleGoal();
                     break;
+                case "ProgressionGoal":
+                    goal = new ProgressionGoal();
+                    break;
                 default:
                     Console.WriteLine($"Invalid goal type found: {goalType}");
                     continue;
@@ -117,17 +173,26 @@ public class GoalTracker
 
             goal.Name = sharedDetails[0];
             goal.Description = sharedDetails[1];
-            goal.GetPoint = int.Parse(sharedDetails[2]);
+            goal.Point = int.Parse(sharedDetails[2]);
 
-            if (goal is SimpleGoal simpleGoal)
+            switch (goal)
             {
-                simpleGoal.Duration = int.Parse(sharedDetails[3]);
-            }
-            else if (goal is ChecklistGoal checklistGoal)
-            {
-                checklistGoal.Bonus = int.Parse(sharedDetails[3]);
-                checklistGoal.Duration = int.Parse(sharedDetails[4]);
-                checklistGoal.NumOfAccomplishments = int.Parse(sharedDetails[5]);
+                case SimpleGoal simpleGoal:
+                    simpleGoal.Duration = int.Parse(sharedDetails[3]);
+                    break;
+                case ChecklistGoal checklistGoal:
+                    checklistGoal.Bonus = int.Parse(sharedDetails[3]);
+                    checklistGoal.Duration = int.Parse(sharedDetails[4]);
+                    checklistGoal.NumOfAccomplishments = int.Parse(sharedDetails[5]);
+                    break;
+                case ProgressionGoal progressGoal:
+                    progressGoal.Bonus = int.Parse(sharedDetails[3]);
+                    progressGoal.CompletionBonus = int.Parse(sharedDetails[4]);
+                    progressGoal.Progress = int.Parse(sharedDetails[5]);
+                    progressGoal.Duration = int.Parse(sharedDetails[6]);
+                    progressGoal.CurrentLevel = int.Parse(sharedDetails[7]);
+                    progressGoal.TotalLevel = int.Parse(sharedDetails[8]);
+                    break;
             }
 
             _goals.Add(goal);
@@ -136,6 +201,30 @@ public class GoalTracker
         if (goal != null)
         {
             goal.TotalPoint = totalScore; // Assign the total score
+        }
+    }
+
+    public void Spin()
+    {
+        int index = 0;
+        string animeString = "|/-\\|/\\";
+
+        DateTime startTime = DateTime.Now;
+        DateTime endTime = startTime.AddSeconds(6);
+
+        while (DateTime.Now < endTime)
+        {
+            char animeChar = animeString[index];
+            Console.Write(animeChar);
+            Thread.Sleep(1000);
+            Console.Write("\b \b");
+
+            index++;
+
+            if (index >= animeString.Length)
+            {
+                index = 0;
+            }
         }
     }
 }
