@@ -22,7 +22,13 @@ public class SimpleGoal : Goal
     public override string DisplayGoal()
     {
         string status = base.DisplayGoal();
-        return $"[{status}] {Name} ({Description})\n";
+        return $"[{status}] {_name} ({_description})\n";
+    }
+
+    public override void LoadGoalDetails(string[] sharedDetails)
+    {
+   		base.LoadGoalDetails(sharedDetails);
+   		_duration = int.Parse(sharedDetails[3]);
     }
 
     public override string GetDetails()
