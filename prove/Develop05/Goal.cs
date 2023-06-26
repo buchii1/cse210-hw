@@ -57,7 +57,7 @@ public abstract class Goal
         return totalPoints;
     }
 
-    public virtual LoadGoalDetails(string[] sharedDetails)
+    public virtual void LoadGoalDetails(string[] sharedDetails)
     {
         _name = sharedDetails[0];
         _description = sharedDetailes[1];
