@@ -79,9 +79,21 @@ public class ProgressionGoal : Goal
         
     }
 
+    public override void LoadGoalDetails(string[] sharedDetails)
+    {
+    base.LoadGoalDetails(sharedDetails);
+    _bonusPoints = sharedDetails[3];
+    _completionBonus = sharedDetails[4];
+    _progress = sharedDetails[5];
+    _duration = sharedDetails[6];
+    _currentLevel = sharedDetails[7];
+    _totalLevel = sharedDetails[8];
+    }
+    
+
     public override string GetDetails()
     {
-        return $"{Name} || {Description} || {Point} || {_bonusPoints} || {_completionBonus} || {_progress} || {Duration} || {_currentLevel} || {_totalLevel}";
+        return $"{_name} || {_description} || {Point} || {_bonusPoints} || {_completionBonus} || {_progress} || {Duration} || {_currentLevel} || {_totalLevel}";
     }
 
     public override void DisplayStartMessage()
