@@ -53,7 +53,15 @@ public class ChecklistGoal : Goal
     public override string DisplayGoal()
     {
         string status = base.DisplayGoal();
-        return $"[{status}] {Name} ({Description}) --- Currently completed: {_numOfTimesAccomplished}/{Duration}\n";
+        return $"[{status}] {_name} ({_description}) --- Currently completed: {_numOfTimesAccomplished}/{_duration}\n";
+    }
+
+    public override void LoadGoalDetails(string[] sharedDetails)
+    {
+    base.LoadGoalDetails(sharedDetails);
+    _bonusPoints = sharedDetails[3];
+    _duration = sharedDetails[4];
+    _numOfTimesAccomplished = sharedDetails[5];
     }
 
     public override string GetDetails()
@@ -65,7 +73,7 @@ public class ChecklistGoal : Goal
     {
         base.DisplayStartMessage();
         Console.Write("How many times does this goal need to be accomplished for a bonus? ");
-        Duration = int.Parse(Console.ReadLine());
+        _duration = int.Parse(Console.ReadLine());
         Console.Write("What is the bonus for accomplishing it that many times? ");
         _bonusPoints = int.Parse(Console.ReadLine());
     }
