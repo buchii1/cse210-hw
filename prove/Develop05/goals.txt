@@ -1,0 +1,4 @@
+0
+SimpleGoal: Buy groceries || Buy personal groceries || 25 || 0
+EternalGoal: Scripture Study || Daily scripture study || 50
+ChecklistGoal: Temple Worship || Attend the temple and perform ordinances || 100 || 600 || 4 || 0
