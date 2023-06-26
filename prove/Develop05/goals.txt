@@ -1,4 +1,5 @@
 0
-SimpleGoal: Buy groceries || Buy personal groceries || 25 || 0
-EternalGoal: Scripture Study || Daily scripture study || 50
-ChecklistGoal: Temple Worship || Attend the temple and perform ordinances || 100 || 600 || 4 || 0
+SimpleGoal: Buy groceries || Purchase items from the local grocery store || 25 || 0
+EternalGoal: Scripture study || Daily scripture study || 50
+ChecklistGoal: Temple worship || Attend the temple and perform ordinances || 300 || 1000 || 4 || 0
+ProgressionGoal: Exercise || Exercise regularly || 200 || 600 || 1200 || 0 || 3 || 0 || 3
