@@ -36,25 +36,25 @@ public class ProgressionGoal : Goal
         get { return _completionBonus; }
         set { _completionBonus = value; }
     }
-    
+
     public override int RecordEvent()
     {
-        int totalPoints;
+        int totalPoints = 0;
         _progress++;
 
-        if (_progress == Duration)
+        if (_progress == _duration)
         {
-            _currentLevel ++;
-            totalPoints = TotalPoint += (_bonusPoints + Point);
+            _currentLevel++;
+            totalPoints = TotalPoint += (_bonusPoints + _point);
         }
 
-        else if  (CheckCompletionStatus())
+        else if (CheckCompletionStatus())
         {
-            totalPoints = TotalPoint += (_bonusPoints + Point + _completionBonus);
+            totalPoints = TotalPoint += (_bonusPoints + _point + _completionBonus);
         }
         else
         {
-            totalPoints = TotalPoint += Point;
+            totalPoints = TotalPoint += _point;
         }
 
         return totalPoints;
@@ -62,38 +62,38 @@ public class ProgressionGoal : Goal
 
     public override bool CheckCompletionStatus()
     {
-        IsComplete = false;
+        _isComplete = false;
 
         if (_currentLevel == _totalLevel)
         {
-            IsComplete = true;
+            _isComplete = true;
         }
 
-        return IsComplete;
+        return _isComplete;
     }
 
     public override string DisplayGoal()
     {
         string status = base.DisplayGoal();
-        return $"[{status}] {Name} ({Description}) --- Currently completed => (Level: {_progress}/{Duration} - Stage: {_currentLevel}/{_totalLevel})\n";
-        
+        return $"[{status}] {_name} ({_description}) --- Currently completed => (Level: {_progress}/{_duration} - Stage: {_currentLevel}/{_totalLevel})\n";
+
     }
 
     public override void LoadGoalDetails(string[] sharedDetails)
     {
-    base.LoadGoalDetails(sharedDetails);
-    _bonusPoints = sharedDetails[3];
-    _completionBonus = sharedDetails[4];
-    _progress = sharedDetails[5];
-    _duration = sharedDetails[6];
-    _currentLevel = sharedDetails[7];
-    _totalLevel = sharedDetails[8];
+        base.LoadGoalDetails(sharedDetails);
+        _bonusPoints = int.Parse(sharedDetails[3]);
+        _completionBonus = int.Parse(sharedDetails[4]);
+        _progress = int.Parse(sharedDetails[5]);
+        _duration = int.Parse(sharedDetails[6]);
+        _currentLevel = int.Parse(sharedDetails[7]);
+        _totalLevel = int.Parse(sharedDetails[8]);
     }
-    
 
-    public override string GetDetails()
+
+    public override string SaveGoalDetails()
     {
-        return $"{_name} || {_description} || {Point} || {_bonusPoints} || {_completionBonus} || {_progress} || {Duration} || {_currentLevel} || {_totalLevel}";
+        return $"{_name} || {_description} || {_point} || {_bonusPoints} || {_completionBonus} || {_progress} || {_duration} || {_currentLevel} || {_totalLevel}";
     }
 
     public override void DisplayStartMessage()
@@ -102,7 +102,7 @@ public class ProgressionGoal : Goal
         Console.Write("How many levels does this goal have? ");
         _totalLevel = int.Parse(Console.ReadLine());
         Console.Write("How many times does this goal need to be accomplished to level up? ");
-        Duration = int.Parse(Console.ReadLine());
+        _duration = int.Parse(Console.ReadLine());
         Console.Write("What is the bonus for leveling up? ");
         _bonusPoints = int.Parse(Console.ReadLine());
         Console.Write("What is the bonus for completing all levels? ");

@@ -60,13 +60,13 @@ public abstract class Goal
     public virtual void LoadGoalDetails(string[] sharedDetails)
     {
         _name = sharedDetails[0];
-        _description = sharedDetailes[1];
-        _point = sharedDetails[2];
+        _description = sharedDetails[1];
+        _point = int.Parse(sharedDetails[2]);
     } 
 
     public abstract bool CheckCompletionStatus();
 
-    public abstract string GetDetails();
+    public abstract string SaveGoalDetails();
 
     public virtual string DisplayGoal()
     {

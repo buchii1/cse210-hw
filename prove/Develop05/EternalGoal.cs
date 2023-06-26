@@ -2,7 +2,7 @@ public class EternalGoal : Goal
 {
     public override bool CheckCompletionStatus()
     {
-        return IsComplete = false;
+        return _isComplete = false;
     }
 
     public override string DisplayGoal()
@@ -11,8 +11,8 @@ public class EternalGoal : Goal
         return $"[{status}] {_name} ({_description})\n";
     }
 
-    public override string GetDetails()
+    public override string SaveGoalDetails()
     {
-        return $"{Name} || {Description} || {Point}";
+        return $"{_name} || {_description} || {_point}";
     }
 }

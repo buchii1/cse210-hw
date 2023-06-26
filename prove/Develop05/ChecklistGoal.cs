@@ -22,29 +22,29 @@ public class ChecklistGoal : Goal
 
     public override bool CheckCompletionStatus()
     {
-        IsComplete = false;
+        _isComplete = false;
 
-        if (_numOfTimesAccomplished >= Duration)
+        if (_numOfTimesAccomplished >= _duration)
         {
-            IsComplete = true;
+            _isComplete = true;
         }
 
-        return IsComplete;
+        return _isComplete;
         
     }
 
     public override int RecordEvent()
     {
-        int totalPoints;
+        int totalPoints = 0;
         _numOfTimesAccomplished++;
 
         if (CheckCompletionStatus())
         {
-            totalPoints = TotalPoint += (_bonusPoints + Point);
+            totalPoints = TotalPoint += (_bonusPoints + _point);
         }
         else
         {
-            totalPoints = TotalPoint += Point;
+            totalPoints = TotalPoint += _point;
         }
 
         return totalPoints;
@@ -59,14 +59,14 @@ public class ChecklistGoal : Goal
     public override void LoadGoalDetails(string[] sharedDetails)
     {
     base.LoadGoalDetails(sharedDetails);
-    _bonusPoints = sharedDetails[3];
-    _duration = sharedDetails[4];
-    _numOfTimesAccomplished = sharedDetails[5];
+    _bonusPoints = int.Parse(sharedDetails[3]);
+    _duration = int.Parse(sharedDetails[4]);
+    _numOfTimesAccomplished = int.Parse(sharedDetails[5]);
     }
 
-    public override string GetDetails()
+    public override string SaveGoalDetails()
     {
-        return $"{Name} || {Description} || {Point} || {_bonusPoints} || {Duration} || {_numOfTimesAccomplished}";
+        return $"{_name} || {_description} || {_point} || {_bonusPoints} || {_duration} || {_numOfTimesAccomplished}";
     }
 
     public override void DisplayStartMessage()

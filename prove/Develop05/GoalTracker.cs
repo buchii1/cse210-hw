@@ -113,7 +113,7 @@ public class GoalTracker
 
             foreach (Goal goal in _goals)
             {
-                outputFile.WriteLine($"{goal.GetType().Name}: {goal.GetDetails()}");
+                outputFile.WriteLine($"{goal.GetType().Name}: {goal.SaveGoalDetails()}");
             }
         }
     }
@@ -137,7 +137,6 @@ public class GoalTracker
 
         for (int i = 0; i < entries.Length; i++)
         {
-
             string entry = entries[i];
             string[] parts = entry.Split(": ");
 
@@ -171,29 +170,7 @@ public class GoalTracker
 
             string[] sharedDetails = goalDetails.Split(" || ");
 
-            goal.Name = sharedDetails[0];
-            goal.Description = sharedDetails[1];
-            goal.Point = int.Parse(sharedDetails[2]);
-
-            switch (goal)
-            {
-                case SimpleGoal simpleGoal:
-                    simpleGoal.Duration = int.Parse(sharedDetails[3]);
-                    break;
-                case ChecklistGoal checklistGoal:
-                    checklistGoal.Bonus = int.Parse(sharedDetails[3]);
-                    checklistGoal.Duration = int.Parse(sharedDetails[4]);
-                    checklistGoal.NumOfAccomplishments = int.Parse(sharedDetails[5]);
-                    break;
-                case ProgressionGoal progressGoal:
-                    progressGoal.Bonus = int.Parse(sharedDetails[3]);
-                    progressGoal.CompletionBonus = int.Parse(sharedDetails[4]);
-                    progressGoal.Progress = int.Parse(sharedDetails[5]);
-                    progressGoal.Duration = int.Parse(sharedDetails[6]);
-                    progressGoal.CurrentLevel = int.Parse(sharedDetails[7]);
-                    progressGoal.TotalLevel = int.Parse(sharedDetails[8]);
-                    break;
-            }
+            goal.LoadGoalDetails(sharedDetails);
 
             _goals.Add(goal);
         }

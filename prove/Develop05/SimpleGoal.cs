@@ -2,21 +2,21 @@ public class SimpleGoal : Goal
 {
     public override int RecordEvent()
     {
-        int totalPoints = TotalPoint += Point;
-        Duration++;
+        int totalPoints = TotalPoint += _point;
+        _duration++;
         return totalPoints;
     }
 
     public override bool CheckCompletionStatus()
     {
-        IsComplete = false;
+        _isComplete = false;
 
-        if (Duration > 0)
+        if (_duration > 0)
         {
-            IsComplete = true;
+            _isComplete = true;
         }
 
-        return IsComplete;
+        return _isComplete;
     }
 
     public override string DisplayGoal()
@@ -31,8 +31,8 @@ public class SimpleGoal : Goal
    		_duration = int.Parse(sharedDetails[3]);
     }
 
-    public override string GetDetails()
+    public override string SaveGoalDetails()
     {
-        return $"{Name} || {Description} || {Point} || {Duration}";
+        return $"{_name} || {_description} || {_point} || {_duration}";
     }
 }
