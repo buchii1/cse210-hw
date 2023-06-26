@@ -1,12 +1,12 @@
 public abstract class Goal
 {
-    private int _basePoint;
-    private int _point;
+    protected int _basePoint;
+    protected int _point;
 
-    private int _duration;
-    private string _description;
-    private string _name;
-    private bool _isComplete;
+    protected int _duration;
+    protected string _description;
+    protected string _name;
+    protected bool _isComplete;
 
     public Goal()
     {
@@ -56,6 +56,13 @@ public abstract class Goal
         int totalPoints = _basePoint += _point;
         return totalPoints;
     }
+
+    public virtual LoadGoalDetails(string[] sharedDetails)
+    {
+        _name = sharedDetails[0];
+        _description = sharedDetailes[1];
+        _point = sharedDetails[2];
+    } 
 
     public abstract bool CheckCompletionStatus();
 
