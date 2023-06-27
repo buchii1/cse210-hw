@@ -59,7 +59,6 @@ public class GoalTracker
     {
         Console.WriteLine("The goals are:");
         
-
         for (int i = 0; i < _goals.Count; i++)
         {
             Goal goal = _goals[i];
