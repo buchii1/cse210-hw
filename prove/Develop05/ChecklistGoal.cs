@@ -19,7 +19,7 @@ public class ChecklistGoal : Goal
         }
 
         return _isComplete;
-        
+
     }
 
     public override void DisplayProgressMessage()
@@ -57,10 +57,10 @@ public class ChecklistGoal : Goal
 
     public override void LoadGoalDetails(string[] sharedDetails)
     {
-    base.LoadGoalDetails(sharedDetails);
-    _bonusPoints = int.Parse(sharedDetails[3]);
-    _duration = int.Parse(sharedDetails[4]);
-    _numOfTimesAccomplished = int.Parse(sharedDetails[5]);
+        base.LoadGoalDetails(sharedDetails);
+        _bonusPoints = int.Parse(sharedDetails[3]);
+        _duration = int.Parse(sharedDetails[4]);
+        _numOfTimesAccomplished = int.Parse(sharedDetails[5]);
     }
 
     public override string SaveGoalDetails()

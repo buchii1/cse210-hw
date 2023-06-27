@@ -27,8 +27,8 @@ public class SimpleGoal : Goal
 
     public override void LoadGoalDetails(string[] sharedDetails)
     {
-   		base.LoadGoalDetails(sharedDetails);
-   		_duration = int.Parse(sharedDetails[3]);
+        base.LoadGoalDetails(sharedDetails);
+        _duration = int.Parse(sharedDetails[3]);
     }
 
     public override string SaveGoalDetails()
