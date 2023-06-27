@@ -65,7 +65,6 @@ public class ProgressionGoal : Goal
     {
         string status = base.DisplayGoal();
         return $"[{status}] {_name} ({_description}) --- Currently completed => (Level: {_progress}/{_duration} - Stage: {_currentLevel}/{_totalLevel})\n";
-
     }
 
     public override void LoadGoalDetails(string[] sharedDetails)
