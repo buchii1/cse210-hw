@@ -8,17 +8,6 @@ public class ChecklistGoal : Goal
         _numOfTimesAccomplished = 0;
         _bonusPoints = 0;
     }
-    public int Bonus
-    {
-        get { return _bonusPoints; }
-        set { _bonusPoints = value; }
-    }
-
-    public int NumOfAccomplishments
-    {
-        get { return _numOfTimesAccomplished; }
-        set { _numOfTimesAccomplished = value; }
-    }
 
     public override bool CheckCompletionStatus()
     {
@@ -31,6 +20,16 @@ public class ChecklistGoal : Goal
 
         return _isComplete;
         
+    }
+
+    public override void DisplayProgressMessage()
+    {
+        if (CheckCompletionStatus())
+        {
+            Console.WriteLine($"You have completed the {_name} goal. You rock!");
+            _totPoint = _bonusPoints;
+            Spin();
+        }
     }
 
     public override int RecordEvent()

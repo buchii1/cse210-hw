@@ -7,36 +7,6 @@ public class ProgressionGoal : Goal
     private int _progress;
     private int _completionBonus;
 
-    public int Bonus
-    {
-        get { return _bonusPoints; }
-        set { _bonusPoints = value; }
-    }
-
-    public int TotalLevel
-    {
-        get { return _totalLevel; }
-        set { _totalLevel = value; }
-    }
-
-    public int CurrentLevel
-    {
-        get { return _currentLevel; }
-        set { _currentLevel = value; }
-    }
-
-    public int Progress
-    {
-        get { return _progress; }
-        set { _progress = value; }
-    }
-
-    public int CompletionBonus
-    {
-        get { return _completionBonus; }
-        set { _completionBonus = value; }
-    }
-
     public override int RecordEvent()
     {
         int totalPoints = 0;
@@ -72,6 +42,25 @@ public class ProgressionGoal : Goal
         return _isComplete;
     }
 
+    public override void DisplayProgressMessage()
+    {
+        if (_progress == _duration)
+        {
+            Console.WriteLine($"Level {_currentLevel} completed.");
+            _progress = 0;
+            _totPoint = _bonusPoints;
+            Spin();
+        }
+
+        if (CheckCompletionStatus())
+        {
+            _totPoint = 0; // Reset value to zero
+            Console.WriteLine($"You have completed all {_totalLevel} levels of the {_name} goal. You rock!");
+            _totPoint = _bonusPoints + _completionBonus;
+            Spin();
+        }
+    }
+
     public override string DisplayGoal()
     {
         string status = base.DisplayGoal();
@@ -89,7 +78,6 @@ public class ProgressionGoal : Goal
         _currentLevel = int.Parse(sharedDetails[7]);
         _totalLevel = int.Parse(sharedDetails[8]);
     }
-
 
     public override string SaveGoalDetails()
     {

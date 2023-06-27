@@ -2,7 +2,7 @@ public abstract class Goal
 {
     protected int _basePoint;
     protected int _point;
-
+    protected int _totPoint;
     protected int _duration;
     protected string _description;
     protected string _name;
@@ -12,19 +12,13 @@ public abstract class Goal
     {
         _duration = 0;
         _point = 0;
+        _totPoint = 0;
         _basePoint = 0;
     }
 
-    public int Duration
+    public int ExtraPoints
     {
-        get { return _duration; }
-        set { _duration = value; }
-    }
-
-    public string Description
-    {
-        get { return _description; }
-        set { _description = value; }
+        get { return _totPoint; }
     }
 
     public int TotalPoint
@@ -36,19 +30,11 @@ public abstract class Goal
     public string Name
     {
         get { return _name; }
-        set { _name = value; }
     }
 
     public int Point
     {
         get { return _point; }
-        set { _point = value; }
-    }
-
-    public bool IsComplete
-    {
-        get { return _isComplete; }
-        set { _isComplete = value; }
     }
 
     public virtual int RecordEvent()
@@ -62,15 +48,45 @@ public abstract class Goal
         _name = sharedDetails[0];
         _description = sharedDetails[1];
         _point = int.Parse(sharedDetails[2]);
-    } 
+    }
+
+    public virtual string DisplayGoal()
+    {
+        return CheckCompletionStatus() ? "X" : " ";
+    }
+
+    public virtual void DisplayProgressMessage()
+    {
+
+    }
 
     public abstract bool CheckCompletionStatus();
 
     public abstract string SaveGoalDetails();
 
-    public virtual string DisplayGoal()
+
+    public void Spin()
     {
-        return CheckCompletionStatus() ? "X" : " ";
+        int index = 0;
+        string animeString = "|/-\\|/\\";
+
+        DateTime startTime = DateTime.Now;
+        DateTime endTime = startTime.AddSeconds(6);
+
+        while (DateTime.Now < endTime)
+        {
+            char animeChar = animeString[index];
+            Console.Write(animeChar);
+            Thread.Sleep(1000);
+            Console.Write("\b \b");
+
+            index++;
+
+            if (index >= animeString.Length)
+            {
+                index = 0;
+            }
+        }
     }
 
     public virtual void DisplayStartMessage()

@@ -58,6 +58,7 @@ public class GoalTracker
     public void RecordGoal()
     {
         Console.WriteLine("The goals are:");
+        
 
         for (int i = 0; i < _goals.Count; i++)
         {
@@ -67,41 +68,15 @@ public class GoalTracker
 
         Console.Write("What goal did you accomplish? ");
         int input = int.Parse(Console.ReadLine());
-        Spin();
 
         Goal selectedGoal = _goals[input - 1];
         int pointsEarned = selectedGoal.RecordEvent();
 
-        int bonusPoint = 0;
+        selectedGoal.Spin();
+        selectedGoal.DisplayProgressMessage();
 
-        if (selectedGoal is ProgressionGoal progressGoal)
-        {
-            if (progressGoal.Progress == progressGoal.Duration)
-            {
-                Console.WriteLine($"Level {progressGoal.CurrentLevel} completed.");
-                progressGoal.Progress = 0;
-                bonusPoint = progressGoal.Bonus;
-                Spin();
-            }
-            if (progressGoal.CheckCompletionStatus())
-            {
-                Console.WriteLine($"You have completed all {progressGoal.TotalLevel} levels of the {progressGoal.Name} goal. You rock!");
-                bonusPoint = progressGoal.Bonus + progressGoal.CompletionBonus;
-                Spin();
-            }
-        }
-        else if (selectedGoal is ChecklistGoal checklistGoal)
-        {
-            if (checklistGoal.CheckCompletionStatus())
-            {
-                Console.WriteLine($"You have completed the {checklistGoal.Name} goal. You rock!");
-                bonusPoint = checklistGoal.Bonus;
-                Spin();
-            }
-        }
-
-        Console.WriteLine($"Congratulations! You have earned {selectedGoal.Point + bonusPoint} points!");
-        Spin();
+        Console.WriteLine($"Congratulations! You have earned {selectedGoal.Point + selectedGoal.ExtraPoints} points!");
+        selectedGoal.Spin();
         Console.WriteLine($"You now have {GetTotalScore()} points.");
     }
 
@@ -142,7 +117,6 @@ public class GoalTracker
 
             if (parts.Length != 2)
             {
-                // Console.WriteLine($"Invalid goal entry format: {entry}");
                 continue;
             }
 
@@ -171,37 +145,12 @@ public class GoalTracker
             string[] sharedDetails = goalDetails.Split(" || ");
 
             goal.LoadGoalDetails(sharedDetails);
-
             _goals.Add(goal);
         }
 
         if (goal != null)
         {
             goal.TotalPoint = totalScore; // Assign the total score
-        }
-    }
-
-    public void Spin()
-    {
-        int index = 0;
-        string animeString = "|/-\\|/\\";
-
-        DateTime startTime = DateTime.Now;
-        DateTime endTime = startTime.AddSeconds(6);
-
-        while (DateTime.Now < endTime)
-        {
-            char animeChar = animeString[index];
-            Console.Write(animeChar);
-            Thread.Sleep(1000);
-            Console.Write("\b \b");
-
-            index++;
-
-            if (index >= animeString.Length)
-            {
-                index = 0;
-            }
         }
     }
 }
