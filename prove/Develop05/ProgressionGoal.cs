@@ -12,19 +12,27 @@ public class ProgressionGoal : Goal
         int totalPoints = 0;
         _progress++;
 
-        if (_progress == _duration)
+        if (CheckCompletionStatus() && _progress > _duration)
         {
-            _currentLevel++;
-            totalPoints = TotalPoint += (_bonusPoints + _point);
-        }
-
-        else if (CheckCompletionStatus())
-        {
-            totalPoints = TotalPoint += (_bonusPoints + _point + _completionBonus);
+            totalPoints = (_point = 0);
         }
         else
         {
-            totalPoints = TotalPoint += _point;
+            if (_progress == _duration)
+            {
+                _currentLevel++;
+                totalPoints = TotalPoint += (_bonusPoints + _point);
+            }
+            else
+            {
+                _totPoint = 0;
+                totalPoints = (TotalPoint += _point);
+            }
+
+            if (CheckCompletionStatus())
+            {
+                totalPoints = (TotalPoint += _completionBonus);
+            }
         }
 
         return totalPoints;
@@ -44,20 +52,28 @@ public class ProgressionGoal : Goal
 
     public override void DisplayProgressMessage()
     {
-        if (_progress == _duration)
+        if (CheckCompletionStatus() && _progress > _duration)
         {
-            Console.WriteLine($"Level {_currentLevel} completed.");
-            _progress = 0;
-            _totPoint = _bonusPoints;
-            Spin();
+            _totPoint = 0;
         }
-
-        if (CheckCompletionStatus())
+        else
         {
-            _totPoint = 0; // Reset value to zero
-            Console.WriteLine($"You have completed all {_totalLevel} levels of the {_name} goal. You rock!");
-            _totPoint = _bonusPoints + _completionBonus;
-            Spin();
+            if (_progress == _duration)
+            {
+                Console.WriteLine($"Level {_currentLevel} completed.");
+                _progress = 0;
+                _totPoint = _bonusPoints;
+                Spin();
+            }
+
+            if (CheckCompletionStatus())
+            {
+                _totPoint = 0; // Reset value to zero
+                Console.WriteLine($"You have completed all {_totalLevel} levels of the {_name} goal. You rock!");
+                _totPoint = _bonusPoints + _completionBonus;
+                _progress = (_duration += 1);
+                Spin();
+            }
         }
     }
 
