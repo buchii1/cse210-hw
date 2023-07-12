@@ -2,8 +2,18 @@ public class SimpleGoal : Goal
 {
     public override int RecordEvent()
     {
-        int totalPoints = TotalPoint += _point;
-        _duration++;
+        int totalPoints = 0;
+
+        if (CheckCompletionStatus())
+        {
+            totalPoints = (_point = 0);
+        }
+        else
+        {
+            totalPoints = TotalPoint += _point;
+            _duration++;
+        }
+
         return totalPoints;
     }
 

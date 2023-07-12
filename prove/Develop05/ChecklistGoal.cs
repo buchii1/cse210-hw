@@ -24,7 +24,7 @@ public class ChecklistGoal : Goal
 
     public override void DisplayProgressMessage()
     {
-        if (CheckCompletionStatus())
+        if (_numOfTimesAccomplished == _duration)
         {
             Console.WriteLine($"You have completed the {_name} goal. You rock!");
             _totPoint = _bonusPoints;
@@ -37,7 +37,12 @@ public class ChecklistGoal : Goal
         int totalPoints = 0;
         _numOfTimesAccomplished++;
 
-        if (CheckCompletionStatus())
+        if (_numOfTimesAccomplished > _duration)
+        {
+            _totPoint = 0;
+            totalPoints = (_point = 0);
+        }
+        else if (_numOfTimesAccomplished == _duration)
         {
             totalPoints = TotalPoint += (_bonusPoints + _point);
         }
