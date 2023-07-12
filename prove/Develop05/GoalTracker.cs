@@ -2,6 +2,7 @@ public class GoalTracker
 {
     private List<Goal> _goals = new List<Goal>();
     private List<string> _goalTypes;
+    Menu menu = new Menu();
 
     public GoalTracker()
     {
@@ -33,13 +34,21 @@ public class GoalTracker
 
     public void DisplayGoals()
     {
-        Console.WriteLine("The goals are:");
-
-        for (int i = 0; i < _goals.Count; i++)
+        if (_goals.Count != 0)
         {
-            Goal goal = _goals[i];
-            Console.Write($"{i + 1}. ");
-            Console.Write(goal.DisplayGoal());
+            Console.WriteLine("The goals are:");
+
+            for (int i = 0; i < _goals.Count; i++)
+            {
+                Goal goal = _goals[i];
+                Console.Write($"{i + 1}. ");
+                Console.Write(goal.DisplayGoal());
+            }
+        }
+        else
+        {
+            Console.WriteLine("No goal(s) to display. Please add a goal.\n");
+            menu.DisplayMenu();
         }
     }
 
@@ -57,43 +66,69 @@ public class GoalTracker
 
     public void RecordGoal()
     {
-        Console.WriteLine("The goals are:");
-
-        for (int i = 0; i < _goals.Count; i++)
+        if (_goals.Count != 0)
         {
-            Goal goal = _goals[i];
-            Console.WriteLine($"{i + 1}. {goal.Name}");
+            Console.WriteLine("The goals are:");
+
+            for (int i = 0; i < _goals.Count; i++)
+            {
+                Goal goal = _goals[i];
+                Console.WriteLine($"{i + 1}. {goal.Name}");
+            }
+
+            int input;
+
+            do
+            {
+                Console.Write("What goal did you accomplish? ");
+                input = int.Parse(Console.ReadLine());
+            } while (input > _goals.Count);
+
+            Goal selectedGoal = _goals[input - 1];
+            int pointsEarned = selectedGoal.RecordEvent();
+
+            selectedGoal.Spin();
+            selectedGoal.DisplayProgressMessage();
+
+            Console.WriteLine($"Congratulations! You have earned {selectedGoal.Point + selectedGoal.ExtraPoints} points!");
+            selectedGoal.Spin();
+            Console.WriteLine($"You now have {GetTotalScore()} points.");
         }
-
-        Console.Write("What goal did you accomplish? ");
-        int input = int.Parse(Console.ReadLine());
-
-        Goal selectedGoal = _goals[input - 1];
-        int pointsEarned = selectedGoal.RecordEvent();
-
-        selectedGoal.Spin();
-        selectedGoal.DisplayProgressMessage();
-
-        Console.WriteLine($"Congratulations! You have earned {selectedGoal.Point + selectedGoal.ExtraPoints} points!");
-        selectedGoal.Spin();
-        Console.WriteLine($"You now have {GetTotalScore()} points.");
+        else
+        {
+            Console.WriteLine("Please add a goal before attempting to record.\n");
+            menu.DisplayMenu();
+        }
     }
 
-    public void SaveGoals(string filename)
+    public void SaveGoals()
     {
-        using (StreamWriter outputFile = new StreamWriter(filename))
+        if (_goals.Count != 0)
         {
-            outputFile.WriteLine(GetTotalScore());
+            Console.Write("What is the filename for the goal file? ");
+            string filename = Console.ReadLine();
 
-            foreach (Goal goal in _goals)
+            using (StreamWriter outputFile = new StreamWriter(filename))
             {
-                outputFile.WriteLine($"{goal.GetType().Name}: {goal.SaveGoalDetails()}");
+                outputFile.WriteLine(GetTotalScore());
+
+                foreach (Goal goal in _goals)
+                {
+                    outputFile.WriteLine($"{goal.GetType().Name}: {goal.SaveGoalDetails()}");
+                }
             }
+        }
+        else
+        {
+            Console.WriteLine("Please add a goal before attempting to save.\n");
+            menu.DisplayMenu();
         }
     }
 
     public void LoadGoals(string filename)
     {
+        Console.Write("What is the filename for the goal file? ");
+
         _goals.Clear(); // Clear existing goals before loading
 
         string[] entries = File.ReadAllLines(filename);

@@ -22,28 +22,36 @@ class Program
 
             if (userInput == 1)
             {
-                trackGoal.DisplayGoalTypes();
-                int prompt = int.Parse(Console.ReadLine());
+                int prompt;
 
-                switch (prompt)
+                do
                 {
-                    case 1:
-                        simpleGoal.DisplayStartMessage();
-                        trackGoal.AddGoal(simpleGoal);
-                        break;
-                    case 2:
-                        eternalGoal.DisplayStartMessage();
-                        trackGoal.AddGoal(eternalGoal);
-                        break;
-                    case 3:
-                        checklistGoal.DisplayStartMessage();
-                        trackGoal.AddGoal(checklistGoal);
-                        break;
-                    default:
-                        progressionGoal.DisplayStartMessage();
-                        trackGoal.AddGoal(progressionGoal);
-                        break;
-                }
+                    trackGoal.DisplayGoalTypes();
+                    prompt = int.Parse(Console.ReadLine());
+
+                    switch (prompt)
+                    {
+                        case 1:
+                            simpleGoal.DisplayStartMessage();
+                            trackGoal.AddGoal(simpleGoal);
+                            break;
+                        case 2:
+                            eternalGoal.DisplayStartMessage();
+                            trackGoal.AddGoal(eternalGoal);
+                            break;
+                        case 3:
+                            checklistGoal.DisplayStartMessage();
+                            trackGoal.AddGoal(checklistGoal);
+                            break;
+                        case 4:
+                            progressionGoal.DisplayStartMessage();
+                            trackGoal.AddGoal(progressionGoal);
+                            break;
+                        default:
+                            Console.WriteLine("Invalid Selection.");
+                            continue;
+                    }
+                } while (prompt < 4);
             }
             else if (userInput == 2)
             {
@@ -51,12 +59,10 @@ class Program
             }
             else if (userInput == 3)
             {
-                Console.Write("What is the filename for the goal file? ");
-                trackGoal.SaveGoals(Console.ReadLine());
+                trackGoal.SaveGoals();
             }
             else if (userInput == 4)
             {
-                Console.Write("What is the filename for the goal file? ");
                 trackGoal.LoadGoals(Console.ReadLine());
             }
             else if (userInput == 5)
