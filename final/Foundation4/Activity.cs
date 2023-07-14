@@ -15,7 +15,7 @@ public abstract class Activity
 
     public abstract double CalcPace();
 
-    public virtual string GetSummary()
+    public string GetSummary()
     {
         string distance = $"Distance: {CalcDistance().ToString("0.0")} km";
         string speed = $"Speed: {CalcSpeed().ToString("0.0")} kph";
