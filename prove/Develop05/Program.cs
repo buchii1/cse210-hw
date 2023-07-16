@@ -24,34 +24,28 @@ class Program
             {
                 int prompt;
 
-                do
-                {
-                    trackGoal.DisplayGoalTypes();
-                    prompt = int.Parse(Console.ReadLine());
+                trackGoal.DisplayGoalTypes();
+                prompt = int.Parse(Console.ReadLine());
 
-                    switch (prompt)
-                    {
-                        case 1:
-                            simpleGoal.DisplayStartMessage();
-                            trackGoal.AddGoal(simpleGoal);
-                            break;
-                        case 2:
-                            eternalGoal.DisplayStartMessage();
-                            trackGoal.AddGoal(eternalGoal);
-                            break;
-                        case 3:
-                            checklistGoal.DisplayStartMessage();
-                            trackGoal.AddGoal(checklistGoal);
-                            break;
-                        case 4:
-                            progressionGoal.DisplayStartMessage();
-                            trackGoal.AddGoal(progressionGoal);
-                            break;
-                        default:
-                            Console.WriteLine("Invalid Selection.");
-                            continue;
-                    }
-                } while (prompt < 4);
+                switch (prompt)
+                {
+                    case 1:
+                        simpleGoal.DisplayStartMessage();
+                        trackGoal.AddGoal(simpleGoal);
+                        break;
+                    case 2:
+                        eternalGoal.DisplayStartMessage();
+                        trackGoal.AddGoal(eternalGoal);
+                        break;
+                    case 3:
+                        checklistGoal.DisplayStartMessage();
+                        trackGoal.AddGoal(checklistGoal);
+                        break;
+                    default:
+                        progressionGoal.DisplayStartMessage();
+                        trackGoal.AddGoal(progressionGoal);
+                        break;
+                }
             }
             else if (userInput == 2)
             {

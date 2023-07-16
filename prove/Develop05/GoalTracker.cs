@@ -17,11 +17,13 @@ public class GoalTracker
 
     public void DisplayGoalTypes()
     {
-        Console.WriteLine("The types of Goals are:");
+        int i = 1;
 
-        for (int i = 0; i < _goalTypes.Count; i++)
+        Console.WriteLine("The types of Goals are:");
+        foreach (string goal in _goalTypes)
         {
-            Console.WriteLine($"  {i + 1}. {_goalTypes[i]}");
+            Console.WriteLine($"{i}. {goal}");
+            i++;
         }
 
         Console.Write("Which type of goal would you like to create? ");
@@ -36,13 +38,14 @@ public class GoalTracker
     {
         if (_goals.Count != 0)
         {
-            Console.WriteLine("The goals are:");
+            int i = 1;
 
-            for (int i = 0; i < _goals.Count; i++)
+            Console.WriteLine("The goals are:");
+            foreach (Goal goal in _goals)
             {
-                Goal goal = _goals[i];
-                Console.Write($"{i + 1}. ");
+                Console.Write($"{i}. ");
                 Console.Write(goal.DisplayGoal());
+                i++;
             }
         }
         else
@@ -68,12 +71,13 @@ public class GoalTracker
     {
         if (_goals.Count != 0)
         {
-            Console.WriteLine("The goals are:");
+            int i = 1;
 
-            for (int i = 0; i < _goals.Count; i++)
+            Console.WriteLine("The goals are:");
+            foreach (Goal goal in _goals)
             {
-                Goal goal = _goals[i];
-                Console.WriteLine($"{i + 1}. {goal.Name}");
+                Console.WriteLine($"{i}. {goal.Name}");
+                i++;
             }
 
             int input;
