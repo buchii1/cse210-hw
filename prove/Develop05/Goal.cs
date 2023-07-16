@@ -68,10 +68,10 @@ public abstract class Goal
     public void Spin()
     {
         int index = 0;
-        string animeString = "|/-\\|/\\";
+        string animeString = "|/\\";
 
         DateTime startTime = DateTime.Now;
-        DateTime endTime = startTime.AddSeconds(6);
+        DateTime endTime = startTime.AddSeconds(3);
 
         while (DateTime.Now < endTime)
         {

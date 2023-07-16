@@ -22,8 +22,10 @@ class Program
 
             if (userInput == 1)
             {
+                int prompt;
+
                 trackGoal.DisplayGoalTypes();
-                int prompt = int.Parse(Console.ReadLine());
+                prompt = int.Parse(Console.ReadLine());
 
                 switch (prompt)
                 {
@@ -51,12 +53,10 @@ class Program
             }
             else if (userInput == 3)
             {
-                Console.Write("What is the filename for the goal file? ");
-                trackGoal.SaveGoals(Console.ReadLine());
+                trackGoal.SaveGoals();
             }
             else if (userInput == 4)
             {
-                Console.Write("What is the filename for the goal file? ");
                 trackGoal.LoadGoals(Console.ReadLine());
             }
             else if (userInput == 5)
